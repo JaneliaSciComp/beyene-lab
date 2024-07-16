@@ -1,13 +1,8 @@
-% read in file
+%% read in files
 close all;
-doMask = true;
-
-
 drd1 = imread('/groups/beyene/beyenelab/Imaging Data/Ackerman/06-25 Drd1_tdt_Dapi/DRD1.tif');
 dapi = imread('/groups/beyene/beyenelab/Imaging Data/Ackerman/06-25 Drd1_tdt_Dapi/DAPI.tif');
 tdt = imread('/groups/beyene/beyenelab/Imaging Data/Ackerman/06-25 Drd1_tdt_Dapi/TDT.tif');
-
-%tdt = circshift(tdt, [randi(size(tdt,1),1,1), randi(size(tdt,2),1,1)]);
 
 % for now hardcode pixel size
 pixelSize = 0.2071607;
@@ -21,6 +16,8 @@ imwrite(dapibw, ['tifs' filesep 'DAPIbw.tif'])
 imwrite(drd1bw, ['tifs' filesep 'DRD1bw.tif'])
 imwrite(tdtbw, ['tifs' filesep 'TDTbw.tif'])
 
+%% Option to do masking of DAPI with DRD1
+doMask = true;
 % dilate for mask
 prefix = '';
 if doMask
@@ -34,6 +31,7 @@ if doMask
     dapi(drd1Dilated) = NaN;
 end
 
+%% Preprocess files
 % calculate distance transform
 drd1dist = bwdist(drd1bw);
 dapidist = bwdist(dapibw);
@@ -93,24 +91,4 @@ xlabel('Distance from TDT (\mum)')
 ylabel('Percent Of Segmented Pixels')
 legend('DAPI','DRD1')
 print(gcf, '-dtiff', ['tifs' filesep prefix 'Percent_Segmented_vs_TDT_Distance.tiff']);
-%% random translation
-% drd1Original = imread('/groups/beyene/beyenelab/Imaging Data/Ackerman/06-25 Drd1_tdt_Dapi/DRD1.tif');
-% randomShiftMeans = [];
-% for i=1:100
-%     drd1 = circshift(drd1Original, [randi(size(drd1,1),1,1), randi(size(drd1,2),1,1)]);
-%     drd1 = drd1(:);
-%     [centersDrd1, randomShiftMeanDrd1, confidenceLevelDrd1 ] = binByDistance(tdtdist, normalize(double(drd1)), 2,0.99);
-%     randomShiftMeans = [randomShiftMeans;randomShiftMeanDrd1(1)];
-%     %plot(centersDrd1*pixelSize,sumsDrd1*100, 'LineWidth', 0.01);% 'color',[0.9,0.9,0.9])
-% end
-% 
-% drd1 = imread('/groups/beyene/beyenelab/Imaging Data/Ackerman/06-25 Drd1_tdt_Dapi/DRD1.tif');
-% drd1bwOriginal = imbinarize(imgaussfilt(drd1,2));
-% randomShiftSums = [];
-% for i=1:100
-%     drd1bw = circshift(drd1bwOriginal, [randi(size(drd1,1),1,1), randi(size(drd1,2),1,1)]);
-%     drd1bw = drd1bw(:);
-%     [centersDrd1, randomSumsDrd1] = sumByDistance(tdtdist, drd1bw/sum(drd1bw(:)), 2);
-%     randomShiftSums = [randomShiftSums;randomSumsDrd1(1)];
-%     %plot(centersDrd1*pixelSize,sumsDrd1*100, 'LineWidth', 0.01);% 'color',[0.9,0.9,0.9])
-% end
+

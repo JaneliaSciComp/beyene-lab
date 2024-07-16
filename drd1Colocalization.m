@@ -17,9 +17,9 @@ drd1bw = imbinarize(imgaussfilt(drd1,2));
 dapibw = imbinarize(imgaussfilt(dapi,2));
 tdtbw = imbinarize(imgaussfilt(tdt,2), 'adaptive');
 
-imwrite(dapibw, "tifs/DAPIbw.tif")
-imwrite(drd1bw, "tifs/DRD1bw.tif")
-imwrite(tdtbw, "tifs/TDTbw.tif")
+imwrite(dapibw, ['tifs' filesep 'DAPIbw.tif'])
+imwrite(drd1bw, ['tifs' filesep 'DRD1bw.tif'])
+imwrite(tdtbw, ['tifs' filesep 'TDTbw.tif'])
 
 % dilate for mask
 prefix = '';
@@ -27,9 +27,9 @@ if doMask
     prefix = 'Masked_';
     se = strel('disk',10);
     drd1Dilated = imdilate(drd1bw, se);
-    imwrite(drd1Dilated,"tifs/DRD1mask.tif")
+    imwrite(drd1Dilated,['tifs' filesep 'DRD1mask.tif'])
     dapibw(drd1Dilated) = 0;
-    imwrite(dapibw,"tifs/DAPIbwmasked.tif")
+    imwrite(dapibw,['tifs' filesep 'DAPIbwmasked.tif'])
     dapi = double(dapi);
     dapi(drd1Dilated) = NaN;
 end
@@ -67,7 +67,7 @@ plotWithShadedError(tdtCentersDrd1*pixelSize,tdtMeanDrd1, tdtConfidenceLevelDrd1
 xlabel('Distance from DAPI or DRD1 (\mum)')
 ylabel('TDT Intensity')
 legend('','DAPI','','DRD1')
-print(gcf, '-dtiff', ['tifs/' prefix 'TDT_Intensity_vs_Distance.tiff']);
+print(gcf, '-dtiff', ['tifs' filesep prefix 'TDT_Intensity_vs_Distance.tiff']);
 
 %% distance from tdt
 [centersDapi, meanDapi, confidenceLevelDapi] = binByDistance(tdtdist, normalize(double(dapi)), 2,0.99);
@@ -79,7 +79,7 @@ plotWithShadedError(centersDrd1*pixelSize,meanDrd1, confidenceLevelDrd1, 'r')
 xlabel('Distance from TDT (\mum)')
 ylabel('Normalized Intensity')
 legend('','DAPI','','DRD1')
-print(gcf, '-dtiff', ['tifs/' prefix 'Intensity_vs_TDT_Distance.tiff']);
+print(gcf, '-dtiff', ['tifs' filesep prefix 'Intensity_vs_TDT_Distance.tiff']);
 
 
 %% fraction of pixels
@@ -92,7 +92,7 @@ plot(centersDrd1*pixelSize,sumsDrd1*100, 'r', 'LineWidth', 2)
 xlabel('Distance from TDT (\mum)')
 ylabel('Percent Of Segmented Pixels')
 legend('DAPI','DRD1')
-print(gcf, '-dtiff', ['tifs/' prefix 'Percent_Segmented_vs_TDT_Distance.tiff']);
+print(gcf, '-dtiff', ['tifs' filesep prefix 'Percent_Segmented_vs_TDT_Distance.tiff']);
 %% random translation
 % drd1Original = imread('/groups/beyene/beyenelab/Imaging Data/Ackerman/06-25 Drd1_tdt_Dapi/DRD1.tif');
 % randomShiftMeans = [];

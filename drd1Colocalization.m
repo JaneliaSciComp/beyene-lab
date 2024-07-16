@@ -65,7 +65,7 @@ plotWithShadedError(tdtCentersDrd1*pixelSize,tdtMeanDrd1, tdtConfidenceLevelDrd1
 xlabel('Distance from DAPI or DRD1 (\mum)')
 ylabel('TDT Intensity')
 legend('','DAPI','','DRD1')
-print(gcf, '-dtiff', ['tifs' filesep prefix 'TDT_Intensity_vs_Distance.tiff']);
+print(gcf, '-dtiff', ['tifs' filesep prefix 'TDT_Intensity_vs_Distance.tif']);
 
 %% distance from tdt
 [centersDapi, meanDapi, confidenceLevelDapi] = binByDistance(tdtdist, normalize(double(dapi)), 2,0.99);
@@ -77,7 +77,7 @@ plotWithShadedError(centersDrd1*pixelSize,meanDrd1, confidenceLevelDrd1, 'r')
 xlabel('Distance from TDT (\mum)')
 ylabel('Normalized Intensity')
 legend('','DAPI','','DRD1')
-print(gcf, '-dtiff', ['tifs' filesep prefix 'Intensity_vs_TDT_Distance.tiff']);
+print(gcf, '-dtiff', ['tifs' filesep prefix 'Intensity_vs_TDT_Distance.tif']);
 
 
 %% fraction of pixels
@@ -90,5 +90,5 @@ plot(centersDrd1*pixelSize,sumsDrd1*100, 'r', 'LineWidth', 2)
 xlabel('Distance from TDT (\mum)')
 ylabel('Percent Of Segmented Pixels')
 legend('DAPI','DRD1')
-print(gcf, '-dtiff', ['tifs' filesep prefix 'Percent_Segmented_vs_TDT_Distance.tiff']);
+print(gcf, '-dtiff', ['tifs' filesep prefix 'Percent_Segmented_vs_TDT_Distance.tif']);
 

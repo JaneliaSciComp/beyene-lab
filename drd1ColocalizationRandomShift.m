@@ -107,7 +107,7 @@ end
     legend('','DAPI','','DRD1')
     xlabel('Distance from DAPI or DRD1 (\mum)')
     ylabel('TDT Intensity')
-    print(gcf, '-dtiff', ['tifs' filesep prefix 'RandomShifts_TDT_Intensity_vs_Distance.tiff']);
+    print(gcf, '-dtiff', ['tifs' filesep prefix 'RandomShifts_TDT_Intensity_vs_Distance.tif']);
 
     figure()
     hold on;
@@ -116,7 +116,7 @@ end
     xlabel('Distance from TDT (\mum)')
     ylabel('Normalized Intensity')
     legend('','DAPI','','DRD1')
-    print(gcf, '-dtiff', ['tifs' filesep prefix 'RandomShifts_Intensity_vs_TDT_Distance.tiff']);
+    print(gcf, '-dtiff', ['tifs' filesep prefix 'RandomShifts_Intensity_vs_TDT_Distance.tif']);
 
     figure()
     hold on;
@@ -125,6 +125,6 @@ end
     xlabel('Distance from TDT (\mum)')
     ylabel('Percent Of Segmented Pixels')
     legend('','DAPI','','DRD1')
-    print(gcf, '-dtiff', ['tifs' filesep prefix 'RandomShifts_Percent_Segmented_vs_TDT_Distance.tiff']);
+    print(gcf, '-dtiff', ['tifs' filesep prefix 'RandomShifts_Percent_Segmented_vs_TDT_Distance.tif']);
 
     
